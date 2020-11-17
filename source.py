@@ -3,7 +3,7 @@ import smtplib
 #note must be using a gmail account or similar SMTP switching server: 
 
 to = 'somebody@.gmail.com'
-userAddress = 'somebody@.somewhere.com'
+userAddress = 'your-email-address@.gmail.com'
 userPass = 'your-pswd-here'
 
 smtpserver = smtplib.SMTP("smtp.gmail.com", 587)
