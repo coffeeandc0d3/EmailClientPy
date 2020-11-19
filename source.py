@@ -17,8 +17,9 @@ header = 'To:' + to + '\n' + 'From: ' + userAddress + '\n' + 'Subject:testing \n
 
 print (header)
 
-msg = header + '/TCWwqJYvWlI?t=211'
-smtpserver.sendmail("your-email-here-again", to, msg)
+# body of email here: 
+body = header + ''
+smtpserver.sendmail("your-email-address-again@gmail.com", to, body)
 
 print ('done!')
 
