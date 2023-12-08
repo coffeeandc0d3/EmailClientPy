@@ -6,8 +6,8 @@ import smtplib
 import sys
 
 # Important constants.
-FROM_ADDR = ''
-FROM_PASS = ''
+FROM_ADDR = '<your-email-address@gmail.com'
+FROM_PASS = '<need-token-instead-of-password>'
 FROM_NAME = 'whatever-you-want'
 
 TO_ADDR = ''
