@@ -1,26 +1,52 @@
+#!/usr/bin/env python
+'''A script that sends the contents of a file in a plain-text email.'''
+
+# Imports
 import smtplib
+import sys
 
-#note must be using a gmail account or similar SMTP switching server: 
+# Important constants.
+FROM_ADDR = ''
+FROM_PASS = ''
+FROM_NAME = 'whatever-you-want'
 
-to = 'somebody@.gmail.com'
-userAddress = 'your-email-address@.gmail.com'
-userPass = 'your-pswd-here'
+TO_ADDR = ''
+TO_NAME = 'Recipient: '
 
-smtpserver = smtplib.SMTP("smtp.gmail.com", 587)
+SUBJECT = '[Subject]'
+SMTP_HOST = 'smtp.gmail.com'
+SMTP_PORT = '465'
 
-smtpserver.ehlo()
-smtpserver.starttls()
-smtpserver.ehlo
-smtpserver.login(userAddress, userPass)
+def main():
+    message_file = sys.argv[1]
+    body = construct_message_body(message_file)
 
-header = 'To:' + to + '\n' + 'From: ' + userAddress + '\n' + 'Subject:testing \n'
+    print("Sending message: " + body)
 
-print (header)
+    # SMTPlib stuff.
+    sender = FROM_ADDR
+    receivers = [TO_ADDR]
 
-# body of email here: 
-body = header + ''
-smtpserver.sendmail("your-email-address-again@gmail.com", to, body)
+    smtp_obj = smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT)
+    smtp_obj.login(FROM_ADDR, FROM_PASS)
+    smtp_obj.sendmail(sender, receivers, body)
 
-print ('done!')
+    print("Message sent")
 
-smtpserver.close()
+def construct_message_body(input_file):
+    '''This function constructs the body of the message'''
+    from_line = 'From: ' + FROM_NAME + ' <' + FROM_ADDR + '>'
+    to_line = 'To: ' + TO_NAME + ' <' + TO_ADDR + '>'
+    subject_line = 'Subject: ' + SUBJECT
+
+    body = '\n'.join([from_line, to_line, subject_line, '\n'])
+
+    with open(input_file, 'r') as f:
+        body += f.read()
+    
+    body += '\n'
+
+    return body
+
+if __name__ == '__main__':
+    main()
